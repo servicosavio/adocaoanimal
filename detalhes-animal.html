@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Detalhes do Animal - Adote um Amigo</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/detalhes.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html">🐾 Adote um Amigo</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Início</a></li>
+                        <li><a href="catalogo.html" class="nav-link">Catálogo</a></li>
+                        <li><a href="index.html#sobre" class="nav-link">Sobre</a></li>
+                        <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                    </ul>
+                    <button class="menu-toggle" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="detalhes-main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index.html">Início</a> > 
+                <a href="catalogo.html">Catálogo</a> > 
+                <span id="breadcrumb-nome">Carregando...</span>
+            </nav>
+
+            <!-- Perfil do Animal -->
+            <div class="perfil-grid" id="perfil-animal">
+                <!-- Conteúdo será inserido via JavaScript -->
+            </div>
+
+            <!-- Seção de Requisitos -->
+            <section class="requisitos">
+                <div class="requisitos-content">
+                    <h2>Requisitos para Adoção</h2>
+                    <div class="requisitos-grid">
+                        <div class="requisito-item">
+                            <div class="requisito-icon">📋</div>
+                            <h3>Documentação</h3>
+                            <p>RG, CPF e comprovante de residência</p>
+                        </div>
+                        <div class="requisito-item">
+                            <div class="requisito-icon">🏠</div>
+                            <h3>Moradia Adequada</h3>
+                            <p>Ambiente seguro e apropriado para o pet</p>
+                        </div>
+                        <div class="requisito-item">
+                            <div class="requisito-icon">💰</div>
+                            <h3>Condições Financeiras</h3>
+                            <p>Capacidade de arcar com cuidados veterinários</p>
+                        </div>
+                        <div class="requisito-item">
+                            <div class="requisito-icon">❤️</div>
+                            <h3>Compromisso</h3>
+                            <p>Disponibilidade de tempo e dedicação</p>
+                        </div>
+                    </div>
+                    <div class="requisitos-footer">
+                        <p><strong>Importante:</strong> A adoção é um compromisso para toda a vida. Certifique-se de estar preparado para oferecer amor, cuidado e atenção ao seu novo companheiro.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Adote um Amigo</h3>
+                    <p>Conectando corações e transformando vidas através da adoção responsável.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="index.html#sobre">Como Adotar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <div class="contact-info">
+                        <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e784888993869388a78683889382928a868a8e8088c984888ac98595">[email&#160;protected]</a></p>
+                        <p>📞 (11) 9999-9999</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Adote um Amigo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="./js/global.js"></script>
+    <script type="module" src="./js/detalhes.js"></script>
+</body>
+
+</html>
