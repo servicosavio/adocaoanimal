@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cadastro - Projeto</title>
+  <link rel="stylesheet" href="./css/test.css" />
+</head>
+<body>
+  <main class="main">
+    <section class="container org">
+      <div class="form-wrap" role="region" aria-labelledby="tituloCadastro">
+        <h1 id="tituloCadastro" class="title">Criar conta</h1>
+        <form id="form-cadastro" autocomplete="on">
+          <label class="field-label" for="nome">Nome</label>
+          <input id="nome" name="nome" class="input-field org-input" type="text" required />
+
+          <label class="field-label" for="email">E-mail</label>
+          <input id="email" name="email" class="input-field org-input" type="email" required />
+
+          <label class="field-label" for="senha">Senha</label>
+          <div class="password-wrapper org-input">
+            <input id="senha" name="senha" class="input-field input-password" type="password" required />
+            <button id="toggleCadastroPwd" type="button" class="btn-eye">👁️</button>
+          </div>
+
+          <label class="field-label" for="confirm-senha">Confirmar Senha</label>
+          <input id="confirm-senha" name="confirm-senha" class="input-field org-input" type="password" required />
+
+          <label class="field-label"><input type="checkbox" id="termos" name="termos" /> Aceito os termos</label>
+
+          <button class="btn-submit" type="submit">Cadastrar</button>
+
+          <p id="cad-msg" style="margin-top:12px;color:var(--cor-texto)"></p>
+        </form>
+        <p style="margin-top:8px">Já tem conta? <a href="login.html">Entrar</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Auth.seedSampleUsers();
+      const toggle = document.getElementById('toggleCadastroPwd');
+      const pwd = document.getElementById('senha');
+      const form = document.getElementById('form-cadastro');
+      const msg = document.getElementById('cad-msg');
+
+      toggle.addEventListener('click', () => {
+        const type = pwd.type === 'password' ? 'text' : 'password';
+        pwd.type = type;
+        toggle.textContent = type === 'password' ? '👁️' : '🙈';
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const result = Auth.registerUser(data);
+        if (result.ok) {
+          msg.style.color = 'green';
+          msg.textContent = 'Conta criada com sucesso! Você pode entrar agora.';
+          setTimeout(() => window.location.href = 'login.html', 1000);
+        } else {
+          msg.style.color = 'crimson';
+          msg.textContent = result.message;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

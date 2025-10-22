@@ -1,204 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
-    <title>Entrar ou Cadastrar - Adote um Amigo</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/login.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Projeto</title>
+  <link rel="stylesheet" href="./css/test.css" />
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1><a href="index.html">🐾 Adote um Amigo</a></h1>
-                </div>
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li><a href="index.html" class="nav-link">Início</a></li>
-                        <li><a href="catalogo.html" class="nav-link">Catálogo</a></li>
-                        <li><a href="index.html#sobre" class="nav-link">Sobre</a></li>
-                        <li><a href="index.html#contato" class="nav-link">Contato</a></li>
-                    </ul>
-                    <button class="menu-toggle" aria-label="Menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <main>
-        <section class="container form-area">
-            <h1>Crie Sua Conta de Adoção</h1>
-            <p class="subtitulo">Junte-se à nossa comunidade e ajude a transformar vidas através da adoção responsável</p>
-            
-            <div class="login-grid">
-                <!-- Formulário de Cadastro -->
-                <div class="cadastro-form">
-                    <form id="form-cadastro">
-                        <div class="form-grupo">
-                            <label for="nome">Nome Completo *</label>
-                            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
-                        </div>
-                        
-                        <div class="form-grupo">
-                            <label for="email">E-mail *</label>
-                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
-                        </div>
+  <main class="main">
+    <section class="container org">
+      <div class="form-wrap" role="region" aria-labelledby="tituloLogin">
+        <h1 id="tituloLogin" class="title">Entrar no perfil</h1>
 
-                        <div class="form-grupo">
-                            <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999">
-                        </div>
+        <form id="form-login" class="login-form" autocomplete="on">
+          <label class="field-label" for="email">E-mail</label>
+          <input id="email" name="email" class="input-field org-input" type="email" placeholder="Seu e-mail" required autocomplete="email" />
 
-                        <div class="form-grupo">
-                            <label for="senha">Crie uma Senha Forte *</label>
-                            <input type="password" id="senha" name="senha" required placeholder="Digite uma senha segura">
-                            <div id="password-strength-meter" class="strength-meter">
-                                <div class="meter-bar"></div>
-                                <span class="meter-text">Digite uma senha para ver a força</span>
-                            </div>
-                        </div>
+          <label class="field-label" for="password">Senha</label>
+          <div class="password-wrapper org-input">
+            <input id="password" name="password" class="input-field input-password" type="password" placeholder="Sua senha" required autocomplete="current-password" />
+            <button type="button" aria-label="Mostrar senha" class="btn-eye" id="togglePassword">👁️</button>
+          </div>
 
-                        <div class="form-grupo">
-                            <label for="confirm-senha">Confirme a Senha *</label>
-                            <input type="password" id="confirm-senha" name="confirm-senha" required placeholder="Digite a senha novamente">
-                            <div class="senha-match" id="senha-match"></div>
-                        </div>
+          <button class="btn-submit" type="submit">Entrar</button>
 
-                        <div class="form-grupo checkbox-grupo">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="termos" name="termos" required>
-                                <span class="checkmark"></span>
-                                Concordo com os <a href="#" class="link-termos">Termos de Uso</a> e <a href="#" class="link-termos">Política de Privacidade</a>
-                            </label>
-                        </div>
+          <p id="login-message" style="margin-top:12px;color:var(--cor-texto)"></p>
+        </form>
+      </div>
+    </section>
+  </main>
 
-                        <div class="form-grupo checkbox-grupo">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="newsletter" name="newsletter">
-                                <span class="checkmark"></span>
-                                Quero receber novidades sobre animais disponíveis para adoção
-                            </label>
-                        </div>
+  <script src="./js/auth.js"></script>
+  <script>
+    // código específico da página de login
+    document.addEventListener('DOMContentLoaded', () => {
+      Auth.seedSampleUsers(); // garante usuários de teste
+      const toggle = document.getElementById('togglePassword');
+      const pwd = document.getElementById('password');
+      const form = document.getElementById('form-login');
+      const msg = document.getElementById('login-message');
 
-                        <button type="submit" class="btn btn-primary btn-grande">
-                            ❤️ Cadastrar e Começar a Adotar
-                        </button>
-                    </form>
+      toggle.addEventListener('click', () => {
+        const type = pwd.type === 'password' ? 'text' : 'password';
+        pwd.type = type;
+        toggle.textContent = type === 'password' ? '👁️' : '🙈';
+      });
 
-                    <div class="login-alternativo">
-                        <p>Já tem uma conta? <a href="#" class="link-login">Faça login aqui</a></p>
-                    </div>
-                </div>
-
-                <!-- Instruções de Senha Forte -->
-                <aside class="instrucoes-senha">
-                    <h2>🔒 Pilares da Senha Forte</h2>
-                    <p>Sua segurança é prioridade. Siga estas diretrizes ao criar sua senha:</p>
-                    
-                    <div class="pilares">
-                        <div class="pilar-item">
-                            <div class="pilar-icon">📏</div>
-                            <h4>Comprimento é Poder</h4>
-                            <p>Mínimo de <strong>12 a 16 caracteres</strong> para máxima segurança.</p>
-                        </div>
-                        
-                        <div class="pilar-item">
-                            <div class="pilar-icon">🔤</div>
-                            <h4>Complexidade e Variedade</h4>
-                            <p>Use 3 dos 4 tipos: <strong>Maiúsculas</strong>, <strong>minúsculas</strong>, <strong>números</strong> e <strong>símbolos</strong> (!@#$).</p>
-                        </div>
-                        
-                        <div class="pilar-item">
-                            <div class="pilar-icon">🎯</div>
-                            <h4>Exclusividade</h4>
-                            <p>Nunca reutilize esta senha em outras contas, especialmente no seu e-mail.</p>
-                        </div>
-                        
-                        <div class="pilar-item">
-                            <div class="pilar-icon">🚫</div>
-                            <h4>Evite Previsibilidade</h4>
-                            <p>Não use nomes (seus ou pets), datas de aniversário, ou sequências óbvias (123456).</p>
-                        </div>
-                    </div>
-
-                    <div class="dica-especial">
-                        <h4>💡 DICA ESPECIAL</h4>
-                        <p><strong>Técnica da Frase (Passphrase):</strong> Crie algo longo e memorável usando uma frase pessoal:</p>
-                        <div class="exemplo-frase">
-                            <p class="frase-original">"Eu gosto de andar de bicicleta vermelha na praça!"</p>
-                            <p class="seta">↓</p>
-                            <p class="frase-transformada"><code>Eg$d2aBvnp!</code></p>
-                        </div>
-                        <p class="explicacao">Pegue as primeiras letras, adicione números e símbolos especiais!</p>
-                    </div>
-
-                    <div class="beneficios">
-                        <h4>🛡️ Por que uma senha forte?</h4>
-                        <ul>
-                            <li>Protege seus dados pessoais</li>
-                            <li>Mantém seguras as informações dos pets</li>
-                            <li>Evita acesso não autorizado à sua conta</li>
-                            <li>Garante a confiança da nossa comunidade</li>
-                        </ul>
-                    </div>
-                </aside>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>Adote um Amigo</h3>
-                    <p>Conectando corações e transformando vidas através da adoção responsável.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📷</a>
-                        <a href="#" aria-label="WhatsApp">💬</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Links Úteis</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
-                        <li><a href="index.html#sobre">Como Adotar</a></li>
-                        <li><a href="login.html">Cadastro</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contato</h4>
-                    <div class="contact-info">
-                        <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f695999882978299b69792998293839b979b9f9199d895999bd89484">[email&#160;protected]</a></p>
-                        <p>📞 (11) 9999-9999</p>
-                        <p>📍 São Paulo, SP</p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Adote um Amigo. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Botão Voltar ao Topo -->
-    <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">↑</button>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="./js/global.js"></script>
-    <script type="module" src="./js/login.js"></script>
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+        const email = document.getElementById('email').value.trim();
+        const password = pwd.value;
+        const result = Auth.loginUser(email, password);
+        if (result.ok) {
+          msg.style.color = 'green';
+          msg.textContent = 'Login bem-sucedido! Redirecionando...';
+          // redirecione para a página principal do projeto
+          setTimeout(() => window.location.href = '../index.html', 800);
+        } else {
+          msg.style.color = 'crimson';
+          msg.textContent = result.message;
+        }
+      });
+    });
+  </script>
 </body>
-
 </html>

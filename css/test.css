@@ -1,0 +1,273 @@
+/* ================================
+   ESTILOS GLOBAIS - style.css
+   Autor: Sávio Sérgio
+   Projeto: Site Responsivo com Menu Hambúrguer
+================================ */
+
+/* -------- VARIÁVEIS GLOBAIS -------- */
+:root {
+    --cor-primaria: #F2C016;
+    --cor-secundaria: #1B8EF2;
+    --cor-texto: #37474F;
+    --cor-fundo: #F7F9F9;
+    --cor-borda-suave: #ECEFF1;
+    --cor-sucesso: #4CAF50;
+    --cor-erro: #E53935;
+    --branco: #ffffff;
+    --preto: #000000;
+    --fonte-principal: "Poppins", Arial, sans-serif;
+}
+
+/* -------- RESET BÁSICO -------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* -------- CONTAINERS -------- */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* -------- CABEÇALHO -------- */
+.header {
+    background-color: var(--branco);
+    border-bottom: 2px solid var(--cor-borda-suave);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+/* LOGO */
+.header img {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.header img:hover {
+    transform: scale(1.05);
+}
+
+/* NAV DESKTOP */
+.navbar {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--cor-secundaria);
+}
+
+/* -------- MENU HAMBÚRGUER (MOBILE) -------- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    background: var(--cor-texto);
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/* -------- ESTADO ATIVO DO MENU -------- */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* MENU MOBILE */
+.navbar-mobile {
+    display: none;
+    flex-direction: column;
+    background: var(--branco);
+    width: 100%;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    border-top: 1px solid var(--cor-borda-suave);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.navbar-mobile a {
+    padding: 1rem;
+    border-bottom: 1px solid var(--cor-borda-suave);
+    color: var(--cor-texto);
+}
+
+.navbar-mobile a:hover {
+    background-color: var(--cor-secundaria);
+    color: var(--branco);
+}
+
+/* -------- SEÇÕES -------- */
+section {
+    padding: 4rem 0;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--cor-primaria);
+}
+
+section p {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* -------- BOTÕES -------- */
+button, .btn {
+    background-color: var(--cor-secundaria);
+    color: var(--branco);
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: var(--cor-primaria);
+    color: var(--preto);
+}
+
+/* -------- RODAPÉ -------- */
+.footer {
+    background: var(--cor-secundaria);
+    color: var(--branco);
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--branco);
+    text-decoration: underline;
+}
+
+/* -------- RESPONSIVIDADE -------- */
+@media (max-width: 900px) {
+    .navbar {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .navbar-mobile.active {
+        display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+    header img {
+        height: 40px;
+    }
+
+    section h2 {
+        font-size: 1.5rem;
+    }
+
+    button, .btn {
+        width: 100%;
+    }
+}
+
+/* -------- ELEMENTOS EXTRAS -------- */
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--cor-borda-suave);
+    border-radius: 8px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--cor-secundaria);
+}
+
+/* -------- CARDS GENÉRICOS -------- */
+.card {
+    background: var(--branco);
+    border: 1px solid var(--cor-borda-suave);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* -------- TABELAS -------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    border: 1px solid var(--cor-borda-suave);
+    padding: 0.8rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--cor-primaria);
+    color: var(--branco);
+}
+
+
+.password-wrapper { position: relative; display:flex; align-items:center; }
+.input-password { padding-right: 48px; }
+.btn-eye { position: absolute; right: 6px; height: 38px; width: 38px; border: none; background: transparent; cursor: pointer; font-size: 18px; }
