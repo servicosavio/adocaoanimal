@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Projeto</title>
   <link rel="stylesheet" href="./css/test.css" />
 </head>
+
 <body>
 
   <main class="main">
@@ -15,16 +17,18 @@
 
         <form id="form-login" class="login-form" autocomplete="on">
           <label class="field-label" for="email">E-mail</label>
-          <input id="email" name="email" class="input-field org-input" type="email" placeholder="Seu e-mail" required autocomplete="email" />
+          <input id="email" name="email" class="input-field org-input" type="email" placeholder="Seu e-mail" required
+            autocomplete="email" />
 
           <label class="field-label" for="password">Senha</label>
           <div class="password-wrapper org-input">
-            <input id="password" name="password" class="input-field input-password" type="password" placeholder="Sua senha" required autocomplete="current-password" />
+            <input id="password" name="password" class="input-field input-password" type="password"
+              placeholder="Sua senha" required autocomplete="current-password" />
             <button type="button" aria-label="Mostrar senha" class="btn-eye" id="togglePassword">👁️</button>
           </div>
 
-         <button class="btn-submit" type="submit">Entrar</button>
-          
+          <button class="btn-submit" type="submit">Entrar</button>
+
           <p id="login-message" style="margin-top:12px;color:var(--cor-texto)"></p>
         </form>
 
@@ -33,93 +37,118 @@
           <p style="color:var(--cor-texto); margin-bottom: 12px;">
             Agora, invente a sua própria senha! Digite abaixo para ver o nível dela.
           </p>
-          
+
           <label class="field-label" for="treino-senha">Teste sua senha aqui:</label>
           <div class="password-wrapper org-input" style="margin-bottom: 10px;">
-            <input id="treino-senha" class="input-field input-password" type="text" placeholder="Digite para testar..." />
+            <input id="treino-senha" class="input-field input-password" type="text"
+              placeholder="Digite para testar..." />
             <button type="button" aria-label="Limpar campo" class="btn-eye" id="limparTreino">❌</button>
           </div>
-          
-          <div id="barra-forca" style="height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin-bottom: 5px;">
-             <div id="barra-progresso" style="height: 100%; width: 0%; background: crimson; transition: all 0.3s ease;"></div>
+
+          <div id="barra-forca"
+            style="height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin-bottom: 5px;">
+            <div id="barra-progresso" style="height: 100%; width: 0%; background: crimson; transition: all 0.3s ease;">
+            </div>
           </div>
-          
+
           <p id="treino-message" style="font-weight: bold; min-height: 20px;"></p>
         </div>
 
-      </div> </section>
+      </div>
+    </section>
   </main>
 
   <script src="./js/auth.js"></script>
-    <script>
+  <script>
     // =============================================
-    // PARTE 1: FUNÇÃO DA CALCULADORA DE SENHA
+    // PARTE 1: CÁLCULO DE FORÇA DA SENHA
     // =============================================
     function calcularNivelSenha(senha) {
       let score = 0;
-      let msg = '';
-      let nivel = 0; // Nível 0 a 4
-      let cor = 'crimson'; // Cor inicial (vermelha)
 
-      // Critérios de pontuação
-      const temMaiuscula = /[A-Z]/.test(senha);
-      const temMinuscula = /[a-z]/.test(senha);
-      const temNumero = /[0-9]/.test(senha);
-      const temSimbolo = /[^A-Za-z0-9]/.test(senha);
+      const criterios = {
+        maiuscula: /[A-Z]/.test(senha),
+        minuscula: /[a-z]/.test(senha),
+        numero: /[0-9]/.test(senha),
+        simbolo: /[^A-Za-z0-9]/.test(senha),
+      };
 
-      if (senha.length >= 8) score++;
-      if (senha.length >= 12) score++; // Bônus por ser longa
-      if (temMaiuscula) score++;
-      if (temMinuscula) score++;
-      if (temNumero) score++;
-      if (temSimbolo) score++;
+      // Pontos por diversidade
+      if (criterios.maiuscula) score += 15;
+      if (criterios.minuscula) score += 15;
+      if (criterios.numero) score += 20;
+      if (criterios.simbolo) score += 25;
 
-      // Mapear score para nível (0-4)
-      if (senha.length < 8) {
-        nivel = 0;
-        msg = 'Muito curta! 😟 Deve ter pelo menos 8 caracteres.';
-        cor = 'crimson';
-      } else if (score <= 2) { // Só tem 1 tipo (ex: '12345678' ou 'bobzinhobob')
-        nivel = 1;
-        msg = 'Cuidado! 🥳 Senha fraca. É fácil de adivinhar.';
-        cor = 'crimson';
-      } else if (score === 3 || score === 4) { // Mistura 2 ou 3 tipos
-        nivel = 2;
-        msg = 'Está melhorando! 😄 Tente misturar maiúsculas, números e símbolos.';
-        cor = 'orange';
-      } else if (score === 5) { // Mistura 3 tipos + é longa OU 4 tipos
-        nivel = 3;
-        msg = 'Muito bem! 👏 Senha forte. Quase lá!';
-        cor = 'blue';
-      } else { // score 6+ (longa e com tudo)
-        nivel = 4;
-        msg = 'PERFEITO! 🏆 Nível Mestre! Você misturou tudo!';
-        cor = 'green';
+      // Pontos por tamanho
+      if (senha.length >= 8) score += 10;
+      if (senha.length >= 12) score += 15;
+
+      // Penalização por repetições
+      if (/(\w)\1{2,}/.test(senha)) score -= 10;
+
+      // Normaliza entre 0 e 100
+      score = Math.max(0, Math.min(100, score));
+
+      // Define nível com base no score
+      let nivel, msg, cor;
+      switch (true) {
+        case senha.length === 0:
+          nivel = 0;
+          msg = '';
+          cor = 'crimson';
+          break;
+        case senha.length < 8:
+          nivel = 1;
+          msg = '⚠️ Muito curta! Use pelo menos 8 caracteres.';
+          cor = 'crimson';
+          break;
+        case score < 40:
+          nivel = 2;
+          msg = '🥱 Senha fraca. Misture letras, números e símbolos.';
+          cor = 'orange';
+          break;
+        case score < 70:
+          nivel = 3;
+          msg = '💪 Boa! Já está mais segura, mas pode melhorar.';
+          cor = 'dodgerblue';
+          break;
+        case score < 90:
+          nivel = 4;
+          msg = '👏 Ótima senha! Está bem forte.';
+          cor = 'mediumseagreen';
+          break;
+        default:
+          nivel = 5;
+          msg = '🏆 Perfeita! Segurança máxima.';
+          cor = 'limegreen';
       }
 
-      // Nível 0 é 0% de barra, Nível 4 é 100%
-      const larguraBarra = (nivel / 4) * 100;
-      
-      return { nivel, msg, cor, larguraBarra };
+      return {
+        nivel,
+        msg,
+        cor,
+        larguraBarra: Math.min(score, 100),
+      };
     }
 
 
     // =============================================
-    // PARTE 2: LÓGICA DA AULA (LOGIN + TREINO)
+    // PARTE 2: LÓGICA DE LOGIN + MODO TREINO
     // =============================================
     document.addEventListener('DOMContentLoaded', () => {
-      Auth.seedSampleUsers(); // Garante os usuários de teste (Zilda, Jorge, etc.)
-      
-      // --- Lógica do Formulário de LOGIN (Jogo dos Vizinhos) ---
+      // ---- LOGIN ----
+      Auth.seedSampleUsers();
+
       const loginForm = document.getElementById('form-login');
       const loginMsg = document.getElementById('login-message');
       const toggle = document.getElementById('togglePassword');
       const pwd = document.getElementById('password');
 
       toggle.addEventListener('click', () => {
-        const type = pwd.type === 'password' ? 'text' : 'password';
-        pwd.type = type;
-        toggle.textContent = type === 'password' ? '👁️' : '🙈';
+        const isHidden = pwd.type === 'password';
+        pwd.type = isHidden ? 'text' : 'password';
+        toggle.textContent = isHidden ? '🙈' : '👁️';
+        toggle.title = isHidden ? 'Ocultar senha' : 'Mostrar senha';
       });
 
       loginForm.addEventListener('submit', (e) => {
@@ -128,63 +157,44 @@
         const email = document.getElementById('email').value.trim();
         const password = pwd.value;
         const result = Auth.loginUser(email, password);
-        
+
         if (result.ok) {
-          const user = result.user; // Pegamos os dados do usuário (Zilda, etc.)
-          
-          // Define a cor baseado no nível PEDAGÓGICO (1-4)
-          if (user.nivel === 1) msg.style.color = 'crimson';
-          else if (user.nivel === 2) msg.style.color = 'orange';
-          else if (user.nivel === 3) msg.style.color = 'blue';
-          else if (user.nivel === 4) msg.style.color = 'green';
-          
-          // Mostra a mensagem personalizada que veio do auth.js!
-          loginMsg.textContent = user.msgSucesso; 
-          
+          const { user } = result;
+          const coresNivel = ['crimson', 'orange', 'blue', 'green'];
+          loginMsg.style.color = coresNivel[user.nivel - 1] || 'black';
+          loginMsg.textContent = user.msgSucesso;
         } else {
           loginMsg.style.color = 'crimson';
-          loginMsg.textContent = result.message + ' 😟 Tente de novo! Verifique o olhinho 👁️'; 
+          loginMsg.textContent = `${result.message} 😟 Verifique o olhinho 👁️`;
         }
       });
 
 
-      // --- Lógica do MODO TREINO (Calculadora) ---
+      // ---- TREINO DE SENHA ----
       const treinoInput = document.getElementById('treino-senha');
       const treinoMsg = document.getElementById('treino-message');
       const barraProgresso = document.getElementById('barra-progresso');
       const btnLimpar = document.getElementById('limparTreino');
 
-      // Evento "input" roda a cada tecla digitada
       treinoInput.addEventListener('input', () => {
         const senha = treinoInput.value;
-        
-        if (senha.length === 0) {
-          // Limpa tudo se o campo estiver vazio
-          treinoMsg.textContent = '';
-          barraProgresso.style.width = '0%';
-          barraProgresso.style.backgroundColor = 'crimson';
-          return;
-        }
+        const analise = calcularNivelSenha(senha);
 
-        // Calcula a força da senha
-        const forca = calcularNivelSenha(senha);
-        
-        // Atualiza a interface
-        treinoMsg.textContent = forca.msg;
-        treinoMsg.style.color = forca.cor;
-        
-        barraProgresso.style.width = forca.larguraBarra + '%';
-        barraProgresso.style.backgroundColor = forca.cor;
+        treinoMsg.textContent = analise.msg;
+        treinoMsg.style.color = analise.cor;
+
+        barraProgresso.style.width = analise.larguraBarra + '%';
+        barraProgresso.style.backgroundColor = analise.cor;
+        barraProgresso.style.transition = 'width 0.3s ease, background-color 0.3s ease';
       });
 
-      // Botão de limpar o campo de treino
       btnLimpar.addEventListener('click', () => {
         treinoInput.value = '';
-        // Dispara o evento 'input' manualmente para limpar a barra e a msg
-        treinoInput.dispatchEvent(new Event('input')); 
+        treinoInput.dispatchEvent(new Event('input'));
       });
-
     });
   </script>
+
 </body>
+
 </html>
