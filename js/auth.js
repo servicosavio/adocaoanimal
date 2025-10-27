@@ -1,7 +1,7 @@
 /* auth.js - simples auth usando localStorage (apenas para testes/ensino)
    Atualizado por: Sávio Sérgio (ajustes e usuários de teste)
 */
-const Auth = (function() {
+const Auth = (function () {
   const LS_KEY = 'projeto_usuarios_v1';
   const LOGGED_KEY = 'projeto_usuario_logado';
 
@@ -27,24 +27,41 @@ const Auth = (function() {
 
   // Usuários de exemplo fornecidos (senhas em texto claro só para ambiente de testes)
   const SAMPLE_USERS = [
-    // Frases de origem (apenas referência nos comentários)
-    // pessoa1 — *(Sua sugestão: 1-Gosto @ 13 Year just for a very Tall 4 **$*nake)
-    { nome: 'Pessoa Um', usuario: 'pessoa1', email: 'pessoa1@gmail.com', senha: '1G@13YjfavT4$' },
+    // Nível 1: A Senha "Tapete" (Só números, 8+ chars)
+    {
+      nome: 'Dona Zilda (Iniciante)',
+      email: 'zilda@email.com',
+      senha: '12345678', // Agora com 8 dígitos
+      nivel: 1,
+      msgSucesso: 'Você entrou! 🥳 Mas cuidado: a senha "12345678" é longa, mas por ter só números, ainda é muito fácil de adivinhar!'
+    },
 
-    // pessoa2 — Eu vou !uma 2024 *Casa muito querida**!**
-    { nome: 'Pessoa Dois', usuario: 'pessoa2', email: 'pessoa2@outlook.com', senha: 'Euv!u2024*Cmq!' },
+    // Nível 2: A Senha "Básica" (Só letras minúsculas, 8+ chars)
+    {
+      nome: 'Seu Jorge (Aprendiz)',
+      email: 'jorge@email.com',
+      senha: 'bobzinhobob', // Mais de 8, mas só minúsculas
+      nivel: 2,
+      msgSucesso: 'Deu certo! 😄 "bobzinhobob" é fácil de lembrar, mas por ter só letras minúsculas, ainda é fraca. Falta misturar!'
+    },
 
-    // pessoa3 — $Para dar muito @ dia 7 vezes Mais**!**
-    { nome: 'Pessoa Três', usuario: 'pessoa3', email: 'p3.teste@yahoo.com', senha: '$Pdm@d7vM!' },
+    // Nível 3: A Senha "Forte" (Mix: Maiúscula + Minúscula + Número)
+    {
+      nome: 'Ana (Segura)',
+      email: 'ana@email.com',
+      senha: 'BoloDeFuba10', // Excelente!
+      nivel: 3,
+      msgSucesso: 'Muito bem! 👏 "BoloDeFuba10" é uma senha forte! Mistura letras maiúsculas, minúsculas e números.'
+    },
 
-    // pessoa4 — #4 Amor não Dói**?m**inha Opiniao 7 Azul
-    { nome: 'Pessoa Quatro', usuario: 'pessoa4', email: 'tester_4@mail.com', senha: '#4AnD?mO7A' },
-
-    // pessoa5 — Come !neste frio Cerveja 5 _ @ gela 0 relva 4 !
-    { nome: 'Pessoa Cinco', usuario: 'pessoa5', email: 'user_cinco@web.com', senha: 'C!nfC5_@g0r4' },
-
-    // pessoa6 — 1 Maleta 0 talento 0 bola !kind 3 _ Batata 7 !
-    { nome: 'Pessoa Seis', usuario: 'pessoa6', email: 'teste_6@email.com', senha: '1M0t0b!k3_B7' }
+    // Nível 4: A Senha "Mestre" (Mix: Maiúscula + Minúscula + Símbolo)
+    {
+      nome: 'Carlos (Mestre Ninja)',
+      email: 'carlos@email.com',
+      senha: 'MeuGatoFazMiau!', // A sua nova senha!
+      nivel: 4,
+      msgSucesso: 'PERFEITO! 🏆 "MeuGatoFazMiau!" é uma senha Mestre! Usar uma frase com um símbolo no final é uma técnica excelente!'
+    }
   ];
 
   function seedSampleUsers() {
