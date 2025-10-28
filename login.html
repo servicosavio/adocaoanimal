@@ -24,7 +24,8 @@
           <div class="password-wrapper org-input">
             <input id="password" name="password" class="input-field input-password" type="password"
               placeholder="Sua senha" required autocomplete="current-password" />
-            <button type="button" aria-label="Mostrar senha" class="btn-eye" id="togglePassword">👁️</button>
+            <button type="button" aria-label="Mostrar senha" class="btn-eye" id="togglePassword"><img src="img1.png"
+                alt="O"></button>
           </div>
 
           <button class="btn-submit" type="submit">Entrar</button>
@@ -42,7 +43,7 @@
           <div class="password-wrapper org-input" style="margin-bottom: 10px;">
             <input id="treino-senha" class="input-field input-password" type="text"
               placeholder="Digite para testar..." />
-            <button type="button" aria-label="Limpar campo" class="btn-eye" id="limparTreino">❌</button>
+            <button type="button" aria-label="Limpar campo" class="btn-eye" id="limparTreino"><img src="img3.png" alt="LIMPAR"></button>
           </div>
 
           <div id="barra-forca"
@@ -146,8 +147,15 @@
 
       toggle.addEventListener('click', () => {
         const isHidden = pwd.type === 'password';
+
+        // Alterna o tipo do campo
         pwd.type = isHidden ? 'text' : 'password';
-        toggle.textContent = isHidden ? '🙈' : '👁️';
+
+        // Atualiza a imagem e o título
+        toggle.innerHTML = isHidden
+          ? '<img src="img2.png" alt="Ocultar senha">'
+          : '<img src="img1.png" alt="Mostrar senha">';
+
         toggle.title = isHidden ? 'Ocultar senha' : 'Mostrar senha';
       });
 
